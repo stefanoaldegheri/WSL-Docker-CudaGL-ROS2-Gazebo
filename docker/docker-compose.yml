@@ -1,0 +1,24 @@
+services:
+  cuda_container:
+    image: ros2-iron-gazebo-gpu
+    stdin_open: true 
+    tty: true
+    container_name: ros2-gpu-container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    environment:
+      - DISPLAY=${DISPLAY}
+      - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
+      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+      - PULSE_SERVER=${PULSE_SERVER}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /mnt/wslg:/mnt/wslg
+      - /usr/lib/wsl:/usr/lib/wsl
+    devices:
+      - /dev/dxg
+      - /dev/dri/card0
+      - /dev/dri/renderD128
